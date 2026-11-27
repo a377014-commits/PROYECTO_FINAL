@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% from "_macros.html" import badge %}
+{% block title %}Mis eventos · CarnetUACH Ingeniería{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-end mb-4">
+  <h1 class="h3 mb-0">Mis eventos</h1>
+  <a class="btn btn-primary" href="{{ url_for('org_evento_nuevo') }}">Crear evento</a>
+</div>
+{% if not eventos %}
+  <p class="vacio">Todavía no has creado eventos. Crea el primero y el administrador lo revisará.</p>
+{% else %}
+<div class="table-responsive panel p-0">
+  <table class="table align-middle mb-0">
+    <thead><tr><th>Evento</th><th>Fecha</th><th>Lugar</th><th>Inscritos</th><th>Asistentes</th><th>Estado</th><th></th></tr></thead>
+    <tbody>
+    {% for e in eventos %}
+      <tr>
+        <td><span class="fw-semibold">{{ e.titulo }}</span><br><small class="text-secondary">{{ e.categoria }}</small></td>
+        <td>{{ e.fecha_inicio|fechahora }}</td>
+        <td>{{ e.lugar }}</td>
+        <td>{{ e.inscritos }} de {{ e.cupo }}</td>
+        <td>{{ e.asistentes }}</td>
+        <td>{{ badge(e.estatus) }}</td>
+        <td class="text-end text-nowrap">
+          {% if e.estatus in ('PENDIENTE', 'RECHAZADO') %}
+            <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('org_evento_editar', id_evento=e.id_evento) }}">Editar</a>
+          {% elif e.estatus == 'APROBADO' %}
+            <a class="btn btn-outline-primary btn-sm" href="{{ url_for('org_asistencia', id_evento=e.id_evento) }}">{{ 'Registrar asistencia' if e.ya_inicio else 'Ver inscritos' }}</a>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

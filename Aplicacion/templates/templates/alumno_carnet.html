@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Mi carnet · CarnetUACH Ingeniería{% endblock %}
+{% block content %}
+<div class="carnet">
+  <header class="carnet-cabeza">
+    <div>
+      <h1>{{ alumno.nombre }} {{ alumno.apellidos }}</h1>
+      <p>Matrícula {{ alumno.matricula }}. {{ alumno.carrera }}, semestre {{ alumno.semestre }}.</p>
+    </div>
+    <div class="carnet-total">
+      <strong>{{ total_ok }}</strong> de {{ total_req }}
+      <span>actividades completadas</span>
+    </div>
+  </header>
+
+  {% if total_ok >= total_req %}
+    <p class="carnet-aviso">Completaste todas las categorías de tu carnet.</p>
+  {% endif %}
+
+  {% for c in categorias %}
+  <section class="carnet-fila {{ 'completa' if c.completa }}">
+    <h2>{{ c.nombre }}</h2>
+    <div class="sellos" role="img" aria-label="{{ c.cursados }} de {{ c.requeridos }} eventos completados">
+      {% for lleno in c.sellos %}<span class="sello {{ 'lleno' if lleno }}">{{ '✓' if lleno }}</span>{% endfor %}
+    </div>
+    <p class="conteo">{{ c.cursados }} de {{ c.requeridos }}</p>
+  </section>
+  {% endfor %}
+</div>
+
+<h2 class="h5 mt-5 mb-3">Asistencias registradas</h2>
+{% if not historial %}
+  <p class="vacio">Todavía no tienes asistencias. Se registran cuando el organizador confirma que estuviste en el evento.</p>
+{% else %}
+<div class="table-responsive panel p-0">
+  <table class="table mb-0">
+    <thead><tr><th>Evento</th><th>Categoría</th><th>Confirmada</th></tr></thead>
+    <tbody>
+    {% for h in historial %}
+      <tr><td>{{ h.titulo }}</td><td>{{ h.categoria }}</td><td>{{ h.fecha_hora|fechahora }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Crear evento' if modo == 'nuevo' else 'Editar evento' }} · CarnetUACH Ingeniería{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h1 class="h3 mb-3">{{ 'Crear evento' if modo == 'nuevo' else 'Editar evento' }}</h1>
+    <form method="post" class="panel row g-3">
+      <div class="col-12">
+        <label class="form-label" for="titulo">Título</label>
+        <input class="form-control" id="titulo" name="titulo" maxlength="120" value="{{ evento.titulo }}" required>
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="descripcion">Descripción</label>
+        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" maxlength="1000">{{ evento.descripcion }}</textarea>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="id_categoria">Categoría</label>
+        <select class="form-select" id="id_categoria" name="id_categoria" required>
+          <option value="">Elige una categoría</option>
+          {% for c in categorias %}<option value="{{ c.id_categoria }}" {{ 'selected' if evento.id_categoria == c.id_categoria }}>{{ c.nombre }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label" for="id_lugar">Lugar</label>
+        <select class="form-select" id="id_lugar" name="id_lugar" required>
+          <option value="">Elige un lugar</option>
+          {% for l in lugares %}<option value="{{ l.id_lugar }}" {{ 'selected' if evento.id_lugar == l.id_lugar }}>{{ l.nombre }} (capacidad {{ l.capacidad }})</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="fecha_inicio">Inicio</label>
+        <input class="form-control" id="fecha_inicio" name="fecha_inicio" type="datetime-local" value="{{ evento.fecha_inicio|inputdt }}" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="fecha_fin">Fin</label>
+        <input class="form-control" id="fecha_fin" name="fecha_fin" type="datetime-local" value="{{ evento.fecha_fin|inputdt }}" required>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label" for="cupo">Cupo</label>
+        <input class="form-control" id="cupo" name="cupo" type="number" min="1" value="{{ evento.cupo }}" required>
+      </div>
+      <p class="text-secondary mb-0">El evento se publica a los alumnos cuando el administrador lo aprueba.</p>
+      <div class="col-12 d-flex gap-2">
+        <button class="btn btn-primary">{{ 'Crear evento' if modo == 'nuevo' else 'Guardar cambios' }}</button>
+        <a class="btn btn-outline-secondary" href="{{ url_for('org_eventos') }}">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
