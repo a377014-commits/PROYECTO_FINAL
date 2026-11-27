@@ -1,4 +1,0 @@
-{% macro badge(estatus) %}
-{% set colores = {'PENDIENTE': 'warning', 'APROBADO': 'success', 'RECHAZADO': 'danger', 'CANCELADO': 'secondary', 'INSCRITO': 'primary', 'ASISTIO': 'success'} %}
-<span class="badge text-bg-{{ colores.get(estatus, 'secondary') }}">{{ estatus|etiqueta }}</span>
-{% endmacro %}
