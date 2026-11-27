@@ -1,0 +1,202 @@
+CREATE TABLE ALUMNO
+(
+	id_alumno            INTEGER NOT NULL ,
+	id_usuario           INTEGER NOT NULL ,
+	matricula            INTEGER NULL ,
+	nombre               VARCHAR2(20) NULL ,
+	apellidos            VARCHAR2(20) NULL ,
+	semestre             INTEGER NULL ,
+	id_carrera           INTEGER NULL 
+);
+
+
+
+CREATE TABLE ASISTENCIA
+(
+	id_asistencia        INTEGER NOT NULL ,
+	fecha_hora           CHAR(18) NULL ,
+	id_inscripcion       INTEGER NULL 
+);
+
+
+
+CREATE TABLE CARRERA
+(
+	id_carrera           INTEGER NOT NULL ,
+	nombre               VARCHAR2(20) NULL 
+);
+
+
+
+CREATE TABLE CATEGORIA
+(
+	id_categoria         INTEGER NOT NULL ,
+	nombre               VARCHAR2(20) NULL ,
+	eventos_requeridos   VARCHAR2(20) NULL 
+);
+
+
+
+CREATE TABLE EVENTO
+(
+	id_evento            INTEGER NOT NULL ,
+	titulo               VARCHAR2(20) NULL ,
+	descripcion          INTEGER NULL ,
+	fecha_inicio         DATE NULL ,
+	fecha_fin            DATE NULL ,
+	cupo                 INTEGER NULL ,
+	estatus              VARCHAR2(20) NULL ,
+	id_categoria         INTEGER NULL ,
+	id_organizador       INTEGER NULL 
+);
+
+
+
+CREATE TABLE INSCRIPCION
+(
+	id_inscripcion       INTEGER NOT NULL ,
+	fecha_registro       DATE NULL ,
+	estatus              VARCHAR2(20) NULL ,
+	id_evento            INTEGER NULL 
+);
+
+
+
+CREATE TABLE LUGAR
+(
+	id_lugar             INTEGER NOT NULL ,
+	nombre               VARCHAR2(20) NULL ,
+	ubicacion            VARCHAR2(20) NULL ,
+	capacidad            VARCHAR2(20) NULL ,
+	id_evento            INTEGER NULL 
+);
+
+
+
+CREATE TABLE ORGANIZADOR
+(
+	id_organizador       INTEGER NOT NULL ,
+	nombre               VARCHAR2(20) NULL ,
+	departamento         VARCHAR2(20) NULL ,
+	id_usuario           INTEGER NULL ,
+	id_asistencia        INTEGER NULL 
+);
+
+
+
+CREATE TABLE ROL
+(
+	id_rol               INTEGER NOT NULL ,
+	nombre               VARCHAR2(20) NULL 
+);
+
+
+
+CREATE TABLE USUARIO
+(
+	id_usuario           INTEGER NOT NULL ,
+	correo               VARCHAR2(20) NULL ,
+	password_hash        VARCHAR2(20) NULL ,
+	activo               VARCHAR2(20) NULL ,
+	id_rol               INTEGER NULL 
+);
+
+
+
+ALTER TABLE ALUMNO
+ADD CONSTRAINT  XPKALUMNO PRIMARY KEY (id_alumno,id_usuario);
+
+
+
+ALTER TABLE ASISTENCIA
+ADD CONSTRAINT  XPKASISTENCIA PRIMARY KEY (id_asistencia);
+
+
+
+ALTER TABLE CARRERA
+ADD CONSTRAINT  XPKCARRERA PRIMARY KEY (id_carrera);
+
+
+
+ALTER TABLE CATEGORIA
+ADD CONSTRAINT  XPKCATEGORIA PRIMARY KEY (id_categoria);
+
+
+
+ALTER TABLE EVENTO
+ADD CONSTRAINT  XPKEVENTO PRIMARY KEY (id_evento);
+
+
+
+ALTER TABLE INSCRIPCION
+ADD CONSTRAINT  XPKINSCRIPCION PRIMARY KEY (id_inscripcion);
+
+
+
+ALTER TABLE LUGAR
+ADD CONSTRAINT  XPKLUGAR PRIMARY KEY (id_lugar);
+
+
+
+ALTER TABLE ORGANIZADOR
+ADD CONSTRAINT  XPKORGANIZADOR PRIMARY KEY (id_organizador);
+
+
+
+ALTER TABLE ROL
+ADD CONSTRAINT  XPKROL PRIMARY KEY (id_rol);
+
+
+
+ALTER TABLE USUARIO
+ADD CONSTRAINT  XPKUSUARIO PRIMARY KEY (id_usuario);
+
+
+
+ALTER TABLE ALUMNO
+ADD CONSTRAINT R_2 FOREIGN KEY (id_carrera) REFERENCES CARRERA (id_carrera) ON DELETE SET NULL;
+
+
+
+ALTER TABLE ALUMNO
+ADD CONSTRAINT R_3 FOREIGN KEY (id_usuario) REFERENCES USUARIO (id_usuario);
+
+
+
+ALTER TABLE ASISTENCIA
+ADD CONSTRAINT R_9 FOREIGN KEY (id_inscripcion) REFERENCES INSCRIPCION (id_inscripcion) ON DELETE SET NULL;
+
+
+
+ALTER TABLE EVENTO
+ADD CONSTRAINT R_5 FOREIGN KEY (id_categoria) REFERENCES CATEGORIA (id_categoria) ON DELETE SET NULL;
+
+
+
+ALTER TABLE EVENTO
+ADD CONSTRAINT R_6 FOREIGN KEY (id_organizador) REFERENCES ORGANIZADOR (id_organizador) ON DELETE SET NULL;
+
+
+
+ALTER TABLE INSCRIPCION
+ADD CONSTRAINT R_8 FOREIGN KEY (id_evento) REFERENCES EVENTO (id_evento) ON DELETE SET NULL;
+
+
+
+ALTER TABLE LUGAR
+ADD CONSTRAINT R_7 FOREIGN KEY (id_evento) REFERENCES EVENTO (id_evento) ON DELETE SET NULL;
+
+
+
+ALTER TABLE ORGANIZADOR
+ADD CONSTRAINT R_4 FOREIGN KEY (id_usuario) REFERENCES USUARIO (id_usuario) ON DELETE SET NULL;
+
+
+
+ALTER TABLE ORGANIZADOR
+ADD CONSTRAINT R_10 FOREIGN KEY (id_asistencia) REFERENCES ASISTENCIA (id_asistencia) ON DELETE SET NULL;
+
+
+
+ALTER TABLE USUARIO
+ADD CONSTRAINT R_1 FOREIGN KEY (id_rol) REFERENCES ROL (id_rol) ON DELETE SET NULL;
