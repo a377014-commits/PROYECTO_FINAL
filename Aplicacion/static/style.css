@@ -1,0 +1,104 @@
+:root {
+  --tinta: #0f2742;
+  --tinta-2: #3c536b;
+  --fondo: #eef2f6;
+  --superficie: #ffffff;
+  --linea: #d5dde6;
+  --oro: #e3a81c;
+  --oro-borde: #b98300;
+  --ok: #1f7a6d;
+  --bs-body-font-family: "Figtree", system-ui, sans-serif;
+  --bs-body-color: var(--tinta);
+  --bs-body-bg: var(--fondo);
+  --bs-link-color: #1d5a9e;
+  --bs-link-hover-color: #0f3d73;
+}
+
+body { background: var(--fondo); color: var(--tinta); }
+h1, h2, h3, h4, .navbar-brand { font-family: "Bricolage Grotesque", "Figtree", system-ui, sans-serif; font-weight: 700; letter-spacing: -0.01em; }
+.text-secondary { color: var(--tinta-2) !important; }
+
+/* Barra superior */
+.barra { background: var(--tinta); }
+.barra .navbar-brand { color: #fff; }
+.barra .nav-link { color: #c9d6e3; padding: 0.5rem 0.9rem; border-bottom: 2px solid transparent; }
+.barra .nav-link:hover { color: #fff; }
+.barra .nav-link.activo { color: #fff; border-bottom-color: var(--oro); }
+.barra .usuario { color: #c9d6e3; font-size: 0.9rem; }
+.barra .navbar-toggler { border-color: #5b7792; }
+.barra .navbar-toggler-icon { filter: invert(1); }
+
+/* Botones */
+.btn-primary {
+  --bs-btn-bg: var(--tinta); --bs-btn-border-color: var(--tinta);
+  --bs-btn-hover-bg: #1b3d63; --bs-btn-hover-border-color: #1b3d63;
+  --bs-btn-active-bg: #1b3d63; --bs-btn-active-border-color: #1b3d63;
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--tinta); --bs-btn-border-color: var(--tinta);
+  --bs-btn-hover-bg: var(--tinta); --bs-btn-hover-border-color: var(--tinta);
+  --bs-btn-active-bg: var(--tinta); --bs-btn-active-border-color: var(--tinta);
+}
+.btn:focus-visible, .form-control:focus, .form-select:focus, .form-check-input:focus {
+  outline: 3px solid rgba(227, 168, 28, 0.55); outline-offset: 1px; box-shadow: none;
+}
+.badge.text-bg-primary { background-color: #1d5a9e !important; }
+
+/* Superficies */
+.panel { background: var(--superficie); border: 1px solid var(--linea); border-radius: 12px; padding: 1.25rem; }
+.panel.p-0 { overflow: hidden; }
+.panel .table { --bs-table-bg: transparent; }
+.table thead th { font-weight: 600; color: var(--tinta-2); border-bottom-color: var(--linea); font-size: 0.9rem; }
+.vacio { background: var(--superficie); border: 1px dashed var(--linea); border-radius: 12px; padding: 1.5rem; color: var(--tinta-2); }
+
+/* Lista de eventos */
+.lista-eventos { display: grid; gap: 0.75rem; }
+.evento { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: 1.25rem; align-items: start;
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: 12px; padding: 1rem 1.25rem; }
+.fecha { display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1;
+  border: 1.5px solid var(--tinta); border-radius: 10px; padding: 0.6rem 0; }
+.fecha .dia { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.7rem; font-weight: 700; }
+.fecha .mes { font-size: 0.85rem; color: var(--tinta-2); margin-top: 0.2rem; }
+.evento h2 { font-size: 1.15rem; margin: 0 0 0.35rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.evento .meta { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; margin: 0 0 0.35rem; color: var(--tinta-2); font-size: 0.92rem; }
+.evento .descripcion { margin: 0; max-width: 70ch; }
+.evento-accion { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+.evento-accion .cupo { font-size: 0.82rem; color: var(--tinta-2); }
+
+/* Carnet del alumno: la pieza principal del sistema */
+.carnet { background: var(--superficie); border: 1px solid var(--linea); border-radius: 16px; overflow: hidden; max-width: 920px; }
+.carnet-cabeza { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center;
+  background: var(--tinta); color: #fff; padding: 1.5rem 1.75rem; border-bottom: 5px solid var(--oro); }
+.carnet-cabeza h1 { font-size: 1.6rem; margin: 0 0 0.25rem; }
+.carnet-cabeza p { margin: 0; color: #c9d6e3; }
+.carnet-total { text-align: right; font-size: 1.1rem; }
+.carnet-total strong { font-family: "Bricolage Grotesque", sans-serif; font-size: 2.6rem; line-height: 1; }
+.carnet-total span { display: block; font-size: 0.85rem; color: #c9d6e3; }
+.carnet-aviso { margin: 0; padding: 0.85rem 1.75rem; background: #e3f3ef; color: #115248; font-weight: 600; }
+.carnet-fila { display: grid; grid-template-columns: 15rem 1fr auto; gap: 1.25rem; align-items: center;
+  padding: 1rem 1.75rem; border-top: 1px solid var(--linea); }
+.carnet-fila:first-of-type { border-top: 0; }
+.carnet-fila h2 { font-size: 1.02rem; margin: 0; }
+.carnet-fila .conteo { margin: 0; font-weight: 600; white-space: nowrap; }
+.carnet-fila.completa .conteo { color: var(--ok); }
+.sellos { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.sello { width: 2.1rem; height: 2.1rem; border-radius: 8px; border: 2px dashed #aebccb;
+  display: grid; place-items: center; font-weight: 700; color: var(--tinta); }
+.sello.lleno { background: var(--oro); border: 2px solid var(--oro-borde); }
+
+/* Resumen del administrador */
+.datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: 0.75rem; margin: 0 0 1.5rem; }
+.datos > div { background: var(--superficie); border: 1px solid var(--linea); border-radius: 12px; padding: 0.9rem 1.1rem; }
+.datos dd { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.9rem; font-weight: 700; margin: 0; line-height: 1.1; }
+.datos dt { font-weight: 500; color: var(--tinta-2); font-size: 0.9rem; }
+.progress { height: 0.6rem; background: #dfe6ee; }
+.progress-bar { background: var(--oro-borde); }
+
+@media (max-width: 720px) {
+  .evento { grid-template-columns: 3.75rem 1fr; }
+  .evento-accion { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; }
+  .carnet-fila { grid-template-columns: 1fr auto; }
+  .carnet-fila .sellos { grid-column: 1 / -1; order: 3; }
+  .carnet-total { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
